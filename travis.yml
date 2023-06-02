@@ -1,0 +1,30 @@
+language: node_js
+node_js:
+  - 16
+
+services:
+  - docker
+
+# Pre-testing installs
+install:
+  - echo "nothing needs to be installed"
+
+# Scripts to be run such as tests
+before_script:
+  - echo "no tests"
+
+script:
+  - docker --version # print the version for logging
+  - docker-compose -f docker-compose-build.yaml build --parallel
+  - docker tag udagram-api-feed hoantat21/udagram-api-feed:v1
+  - docker tag udagram-api-user hoantat21/udagram-api-user:v1
+  - docker tag udagram-frontend:local hoantat21/udagram-frontend:v1
+  - docker tag reverseproxy hoantat21/reverseproxy:v1
+
+after_success:
+  - docker logoutgit 
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker push hoantat21/udagram-api-feed:v1
+  - docker push hoantat21/udagram-api-user:v1
+  - docker push hoantat21/udagram-frontend:v1
+  - docker push hoantat21/reverseproxy:v1
