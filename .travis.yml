@@ -22,7 +22,7 @@ script:
   - docker tag reverseproxy hoantat21/reverseproxy:v1
 
 after_success:
-  - docker logoutgit 
+  - docker logout
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker push hoantat21/udagram-api-feed:v1
   - docker push hoantat21/udagram-api-user:v1
