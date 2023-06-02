@@ -23,7 +23,7 @@ script:
 
 after_success:
   - docker logout
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   - docker push hoantat21/udagram-api-feed:v1
   - docker push hoantat21/udagram-api-user:v1
   - docker push hoantat21/udagram-frontend:v1
